@@ -1,16 +1,15 @@
 import Scene from '../components/Scene'
 import React from 'react'
-import toXYZ from '../utils/converters'
+import {toXYZ} from '../utils/converters'
 import Exoplanet from '../models/Exoplanet'
 import dbConnect from '../lib/dbConnect'
 
-export async function getServerSideProps() {
+export const getData = async () => {
   await dbConnect()
   
   const result = await Exoplanet.find({})
   const exoplanets = result.map((doc) => {
     const exoplanet = doc.toObject()
-    exoplanet._id = exoplanet._id.toString()
     return exoplanet
   })
 
@@ -18,15 +17,16 @@ export async function getServerSideProps() {
 }
 
 export default async function Home() {
-  const data = await getServerSideProps()
-  const coordinates = data.props.exoplanets.map((exoplanet) => ({
-    id: exoplanet._id,
+  const data = await getData()
+  const children = data.props.exoplanets.map((exoplanet) => ({
+    id: exoplanet._id.toString(),
     coords: toXYZ(exoplanet.glat, exoplanet.glon, exoplanet.sy_dist),
+    name: exoplanet.pl_name
   }))
 
   return (
     <div style={{ width: '100vw', height: '100vh' }}>
-      <Scene data={...coordinates} />
+      <Scene data={...children} />
     </div>
   )
 }

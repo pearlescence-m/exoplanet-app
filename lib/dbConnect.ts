@@ -1,6 +1,10 @@
 import mongoose from 'mongoose'
 
-const MONGODB_URL = process.env.MONGODB_URI
+declare global {
+  var mongoose: any // This must be a `var` and not a `let / const`
+}
+
+const MONGODB_URL = process.env.MONGODB_URI!
 
 if (!MONGODB_URL) {
   throw new Error(
