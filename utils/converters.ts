@@ -16,17 +16,10 @@ export function toXYZ(
   return new Vector3(Math.round(x), Math.round(y), Math.round(z))
 }
 
-export const orbitalRadius = (
-  period: number
+export const semiMinorRadius = (
+  semiMajorRadius: number,
+  eccentricity: number
 ): number => {
-  const T2 = (period * 173.13) ** 2;
-  const R = Math.cbrt(T2)
+  const R = semiMajorRadius * Math.sqrt(1 - (eccentricity ** 2))
   return R
 }
-
-// export function RandomCelestialObject({ }) {
-//   // Generate random coordinates within a defined space
-//   const randomX = (Math.random() - 0.5) * 100; // Adjust the range as needed
-//   const randomY = (Math.random() - 0.5) * 100;
-//   const randomZ = (Math.random() - 0.5) * 100;
-// }

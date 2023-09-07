@@ -21,10 +21,9 @@ export default function Scene(props: ExoplanetProps): React.ReactElement {
   }
 
   return (
-    <Canvas camera={{ fov: 35, zoom: 0.3, near: 1, far: 1000 }}>
+    <Canvas camera={{ fov: 20, zoom: 1, near: 10, far: 100000 }}>
       <color attach="background" args={['black']} />
-      <ambientLight intensity={0.5} />
-      <pointLight position={[100, 100, 100]} />
+      <ambientLight intensity={1} />
       <OrbitControls />
       <Sphere position={[0, 0, 0]}>
         <mesh>
