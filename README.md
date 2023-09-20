@@ -15,13 +15,14 @@ I was always fascinated with stars and the worlds beyond ours that exist somewhe
 
 High Priority:
 
-- Adding more planet information on the planetary system page
-- Fixing the size/orbit ratio for smaller planets
-- Interactive filtering on the main page
+- Interactive filtering of planets on the main page
+- Adding distances from Earth on the main page
+- Adding more of the planet information on the planetary system page
+- Displaying all the planets of one system on the same page
 
 Stretch goals:
 
-- Changing planet sphere colors and materials
+- Setting shader colors randomly or according to luminocity
 
 ## License
 
