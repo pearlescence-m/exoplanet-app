@@ -28,4 +28,3 @@ Stretch goals:
 exoplanet-app project is [licensed](/LICENSE) under the MIT License, Copyright (c) 2023 Meru A.
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
