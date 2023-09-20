@@ -1,69 +1,73 @@
 'use client'
 
-import React from 'react';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Sphere, Stars } from '@react-three/drei';
-import { semiMinorRadius } from '@/utils/converters';
-import * as THREE from 'three';
+import React, { useMemo } from 'react'
+import { Canvas } from '@react-three/fiber'
+import { OrbitControls, Sphere, Stars } from '@react-three/drei'
+import { semiMinorRadius } from '@/utils/converters'
+import { Exoplanets } from 'Exoplanets'
+import * as THREE from 'three'
+import { EllipticOrbit } from './EllipticOrbit'
+import { fragmentShader, vertexShader } from '@/utils/shaders'
 
-function SytemInformation({planet}) {
-    return (
-        <div className='container text-white bg-black h-screen w-[20%]'>
-            <h1 className='text-center font-sans'>Planet: {planet.pl_name}</h1>
-            <br/>
-            <h2 className='text-center font-sans'>Stellar name: {planet.hostname}</h2>
-            <h2 className='text-center font-sans'>Number of moons: {planet.sy_mnum}</h2>
-            <br/>
-            <br/>
-            <p className='text-center font-sans'>Discovery Method: {planet.discoverymethod} <br/>
-               Discovery Year: {planet.disc_year} <br/>
-	           Discovery Facility: {planet.disc_facility}</p>
-        </div>
-    )
+type Props = { data: Exoplanets }
+
+function SystemInformation({ data }: Props) {
+  return (
+    <div className="container text-white bg-black h-screen w-[20%]">
+      <h1 className="text-center font-sans">Exoplanet: {data.pl_name}</h1>
+      <br />
+      <h2 className="text-center font-sans">Stellar name: {data.hostname}</h2>
+      <h2 className="text-center font-sans">
+        Number of moons: {data.sy_mnum}
+      </h2>
+      <br />
+      <br />
+      <p className="text-center font-sans">
+        Discovery Method: {data.discoverymethod} <br />
+        Discovery Year: {data.disc_year} <br />
+        Discovery Facility: {data.disc_facility}
+      </p>
+    </div>
+  )
 }
 
-function Ecliptic({ xRadius = 1, zRadius = 1 }) {
-    const points = [];
+export default function PlanetarySystem({ data }: Props): React.ReactElement {
+  const uniforms = useMemo(
+    () => ({
+      u_time: {
+        value: 0.0,
+      },
+      u_mouse: { value: new THREE.Vector2(0, 0) },
+      u_bg: {
+        value: new THREE.Color('#f18805'),
+      },
+      u_colorA: { value: new THREE.Color('#ef271b') },
+      u_colorB: { value: new THREE.Color('#fff75e') },
+    }),
+    []
+  )
 
-    for (let index = 0; index < 64; index++) {
-      const angle = (index / 64) * 2 * Math.PI;
-      const x = xRadius * Math.cos(angle);
-      const z = zRadius * Math.sin(angle);
-      points.push(new THREE.Vector3(x, 0, z));
-    }
-    points.push(points[0]);
-
-    const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
-    return (
-      <>
-        <line geometry={lineGeometry}>
-            <lineBasicMaterial attach="material" color="#BFBBDA" linewidth={10} />
-        </line>
-        <Sphere position={points[Math.floor(Math.random()*points.length)]} />
-      </>
-    );
-  }
-
-  function Planet({ xRadius = 1, zRadius = 1 }) {
-    return (
-      <>
-        <Ecliptic xRadius={xRadius} zRadius={zRadius} />
-      </>
-    );
-  }
-
-export default function PlanetarySystem({data}): React.ReactElement {
   return (
-    <div className="flex"> 
-        <SytemInformation planet={data} />
-        <Canvas className='w-auto h-screen'>
+    <div className="flex">
+      <SystemInformation data={data} />
+      <Canvas className="w-[80%] h-screen">
         <ambientLight intensity={1} />
         <color attach="background" args={['black']} />
         <OrbitControls />
-        <Stars/>
-        <Sphere position={[0, 0, 0]} />
-        <Planet zRadius={semiMinorRadius(data.pl_orbsmax, data.pl_orbeccen)*30} xRadius={data.pl_orbsmax*30} />      
-        </Canvas>
+        <Stars />
+        <Sphere position={[0, 0, 0]} >
+          <shaderMaterial
+            fragmentShader={fragmentShader}
+            vertexShader={vertexShader}
+            uniforms={uniforms}
+            wireframe={false}
+          />
+        </Sphere>
+        <EllipticOrbit
+          zRadius={semiMinorRadius(data.pl_orbsmax, data.pl_orbeccen) * 30}
+          xRadius={data.pl_orbsmax * 30}
+        />
+      </Canvas>
     </div>
-  );
+  )
 }
