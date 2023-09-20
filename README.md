@@ -1,32 +1,30 @@
-This project aims to make a 3D visualization of exoplanets and planetary systems using data from [NASA's API](https://exoplanetarchive.ipac.caltech.edu/docs/API_PS_columns.html). React-Three-Fiber, Next.js with MongoDB were used to create the application. 
-
 ![Alt text](/public/image.png)
 
+_**exoplanet-app** is an interactive 3D visualization of exoplanets and planetary systems using data from [NASA](https://exoplanetarchive.ipac.caltech.edu/docs/API_PS_columns.html)._
+
+This application was created as a part of my self-directed study journey where I had a goal to learn more about 3D shaders, Three.js and React-Three/Fiber and Drei, and modern web technologies such as Next.js and TypeScript. I also used MongoDB and a library called mongoose to store and retrieve data.
+
+I was always fascinated with stars and the worlds beyond ours that exist somewhere out there in the greater universe. This project is a tribute to the wonders of the human thought that created telescopes, Sci-Fi and Fermi paradox. Hope you'll enjoy it as much as I did!
+
+## Updates
+### Releases
+
+- 1.0.0: Initial release
+
+### Roadmap
+
+High Priority:
+
+- Adding more planet information on the planetary system page
+- Fixing the size/orbit ratio for smaller planets
+- Interactive filtering on the main page
+
+Stretch goals:
+
+- Changing planet sphere colors and materials
+
+## License
+
+exoplanet-app project is [licensed](/LICENSE) under the MIT License, Copyright (c) 2023 Meru A.
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
